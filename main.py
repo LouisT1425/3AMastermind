@@ -20,10 +20,31 @@ def guess(choice, color_code):
     return [good_guess, wrong_placement - good_guess]
 
 
+def game(possible_colors, code_length, number_of_tries):
+    tries = 0
+    has_won = False
+    print("You have ", number_of_tries, " to guess the color code.")
+    print("The possible colors are : ", possible_colors)
+    print("The code length is : ", code_length)
+    color_code = randoCode(code_length, possible_colors)
+    print(color_code)
+    while tries < number_of_tries:
+        tries += 1
+        user_input = input("Please enter a code : ")
+        result = guess(user_input, color_code)
+        if result[0] == code_length:
+            has_won = True
+            break
+        else:
+            print("You have ", result[0], " good guesses and ", result[1], " wrong placement but right color.")
+    if has_won:
+        print("Congratulations ! You won !")
+    else:
+        print("You lost, the right code was ", color_code)
+
+
+code_length = 4
 possible_colors = ['R', 'G', 'B', 'Y', 'P', 'W']
-code = randoCode(4, possible_colors)
-print("The code is : ", code)
-user = ['R', 'W', 'G', 'B']
-print("Your code is : ", user)
-results = guess(user, code)
-print("You have ", results[0], " good guesses and ", results[1], " wrong placement but right color.")
+number_of_tries = 12
+game(possible_colors, code_length, number_of_tries)
+
