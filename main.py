@@ -45,22 +45,61 @@ def randoCode(number_of_color, color_array):
     return color_code
 
 
-def guess(choice, color_code):
+def check_correct(choice, color_code):
+    length = len(color_code)
     correct_guess = 0
     partial_placement = 0
-    for i in range(len(color_code)):
+    new_choice = [0] * length
+    for i in range(length):
         if choice[i] == color_code[i]:
+            new_choice[i] = "N"
             correct_guess += 1
-        for j in range(len(color_code)):
-            if choice[i] == color_code[j]:
+            print(new_choice)
+        for k in range(length):
+            if new_choice[k] != "N":
+                new_choice[k] = choice[i]
+        for j in range(length):
+            if new_choice[i] == color_code[j]:
                 partial_placement += 1
-    return [correct_guess, partial_placement - correct_guess]
+
+    return [correct_guess, partial_placement]
+
+
+def check_input(user_input, code_length):
+    while len(user_input) != code_length:
+        print("This is not the right code length. Try again.")
+        user_input = input("Please enter a code : ")
+    return user_input
+
+
+def print_stats():
+    stats = [0, 0]
+    if exists(".number_of_games.txt"):
+        file = open(".number_of_games.txt", "r")
+        number_of_games = file.read()
+        file.close()
+        stats[0] = number_of_games
+    else:
+        stats[0] = "NULL"
+        stats[1] = "NULL"
+
+    if exists(".score.txt"):
+        file = open(".score.txt", "r")
+        score = file.read()
+        file.close()
+        stats[1] = score
+
+    if stats[0] == "NULL" and stats[1] == "NULL":
+        print("No stats currently available.")
+    else:
+        print("You played ", stats[0], " games, and your overall score is ", stats[1], ".")
 
 
 def game(possible_colors, code_length, number_of_tries):
     tries = 0
     has_won = False
-    print("You have ", number_of_tries, " to guess the color code.")
+    print_stats()
+    print("You have ", number_of_tries, " tries to guess the color code.")
     print("The possible colors are : ", possible_colors)
     print("The code length is : ", code_length)
     color_code = randoCode(code_length, possible_colors)
@@ -68,10 +107,8 @@ def game(possible_colors, code_length, number_of_tries):
     while tries < number_of_tries:
         tries += 1
         user_input = input("Please enter a code : ")
-        while len(user_input) != code_length:
-            print("This is not the right code length. Try again.")
-            user_input = input("Please enter a code : ")
-        result = guess(user_input, color_code)
+        user_input = check_input(user_input, code_length)
+        result = check_correct(user_input, color_code)
         if result[0] == code_length:
             has_won = True
             break
