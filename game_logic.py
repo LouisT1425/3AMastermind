@@ -14,24 +14,23 @@ def randoCode(number_of_color, color_list):
 def check_correct(user_input, color_code):
     """
     Checks if the user input is right.
-    :param user_input:
-    :param color_code:
     :return: A list containing the correct position, and the partial placement.
     """
     length = len(color_code)
     correct_guess = 0
     partial_placement = 0
-    new_user_input = [0] * length
+    guess_left = list(user_input[:])  # Create a copy of user_input as a list.
+    color_code_left = list(color_code[:])
     for i in range(length):
-        if user_input[i] == color_code[i]:
-            new_user_input[i] = "N"
-            correct_guess += 1
-        for k in range(length):
-            if new_user_input[k] != "N":
-                new_user_input[k] = user_input[i]
-        for j in range(length):
-            if new_user_input[i] == color_code[j]:
-                partial_placement += 1
+        if user_input[i] == color_code[i]:  # If the user input N°i is exactly correct...
+            guess_left.remove(user_input[i])  # ... removes the current color from the guess_left variable ...
+            color_code_left.remove(color_code[i])  # ... and from the correct code. It removes the current color as to
+            correct_guess += 1                     # not check it again during the partial color phase.
+
+    for j in guess_left:  # Checks if any of the colors left ...
+        if j in color_code_left:  # ... are in the remaining color code.
+            partial_placement += 1
+            color_code_left.remove(j)  # Removes the color from the remaining color code.
 
     return [correct_guess, partial_placement]
 
