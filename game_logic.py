@@ -1,10 +1,10 @@
 import random
 
 
-def randoCode(number_of_color, color_array):
+def randoCode(number_of_color, color_list):
     color_code = []
     for _ in range(number_of_color):
-        color_code.append(random.choice(color_array))
+        color_code.append(random.choice(color_list))
     return color_code
 
 
@@ -21,7 +21,7 @@ def check_correct(choice, color_code):
             if new_choice[k] != "N":
                 new_choice[k] = choice[i]
         for j in range(length):
-            if new_choice[i] == color_code[j] and new_choice[i] != "N":
+            if new_choice[i] == color_code[j]:
                 partial_placement += 1
 
     return [correct_guess, partial_placement]

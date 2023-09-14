@@ -79,3 +79,26 @@ def print_stats():
         print("No stats currently available.")
     else:
         print("You played ", stats[0], " games, and your overall score is ", stats[1], ".")
+
+
+def get_stats():
+    stats = [0, 0]
+    if exists(".number_of_games.txt"):
+        file = open(".number_of_games.txt", "r")
+        number_of_games = file.read()
+        file.close()
+        stats[0] = number_of_games
+    else:
+        stats[0] = "NULL"
+        stats[1] = "NULL"
+
+    if exists(".score.txt"):
+        file = open(".score.txt", "r")
+        score = file.read()
+        file.close()
+        stats[1] = score
+
+    if stats[0] == "NULL" and stats[1] == "NULL":
+        return ["NULL", "NULL"]
+    else:
+        return [stats[0], stats[1]]

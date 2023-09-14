@@ -1,6 +1,7 @@
 import stats
 import game_logic
 
+
 def game(possible_colors, code_length, number_of_tries):
     tries = 0
     has_won = False
