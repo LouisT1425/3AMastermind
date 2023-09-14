@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import *
 import stats
+import main
 
 root = Tk()  # Generate a window to display all the buttons.
 root.geometry("350x200")  # Resize the window.
@@ -15,20 +16,20 @@ def play():
     """
     Creates another window for the game to be displayed on.
     """
-    window = Toplevel(root)
-    window.title("Mastermind")
-    window.geometry("500x500")
+    # window = Toplevel(root)
+    # window.title("Mastermind")
+    # window.geometry("500x500")
 
-    image = PhotoImage(file="images/plateau.gif")  # Create an image containing the file plateau.gif,
+    # image = PhotoImage(file="images/plateau.gif")  # Create an image containing the file plateau.gif,
                                                    # in the images folder.
-    original_image = Label(window, image=image)
-    original_image.image = image
-    original_image.pack()
+    # original_image = Label(window, image=image)
+    # original_image.image = image
+    # original_image.pack()
 
-    red_button = PhotoImage(file="images/red.gif")
-    red = tkinter.Button(image=red_button)
-    red.pack(side=LEFT)
-
+    # red_button = PhotoImage(file="images/red.gif")
+    # red = tkinter.Button(image=red_button)
+    # red.pack(side=LEFT)
+    main.main()
 
 def main_menu():
     score = stats.get_stats()
