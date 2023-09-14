@@ -9,13 +9,12 @@ def game(possible_colors, code_length, number_of_tries):
     print("The possible colors are : ", possible_colors)
     print("The code length is : ", code_length)
     color_code = game_logic.randoCode(code_length, possible_colors)
-    print(color_code)
     while tries < number_of_tries:
         tries += 1
         user_input = input("Please enter a code : ")
         user_input = game_logic.check_input(user_input, code_length)
         result = game_logic.results_check(user_input, color_code)
-        if result[2]:
+        if result[2]:  # result[2] contains the boolean has_won variable.
             break
         else:
             print("You have ", result[0], " correct guesses and ", result[1], " partial guesses.")
@@ -44,7 +43,6 @@ def main_menu(possible_colors, code_length, number_of_tries):
             stats.save_stats(number_of_game, game_score)
         if choice == "Q":
             print("Goodbye !")
-            is_game_on = False
             break
         if choice == "R":
             stats.reset_stats()

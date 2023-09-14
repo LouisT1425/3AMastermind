@@ -4,16 +4,15 @@ import os
 
 def save_stats(number_of_games, score):
     if exists(".number_of_games.txt"):
-        os.system("attrib -h .number_of_games.txt")
-        os.chmod(".number_of_games.txt", 0o755)
+        os.system("attrib -h .number_of_games.txt")  # Shows the file
         file = open(".number_of_games.txt", "r")
         old_number_of_games = file.read()
-        number_of_games = int(number_of_games)
+        number_of_games = int(number_of_games)  # Converts from str to int
         number_of_games += int(old_number_of_games)
         file = open(".number_of_games.txt", "w")
         file.write(str(number_of_games))
         file.close()
-        os.system("attrib +h .number_of_games.txt")
+        os.system("attrib +h .number_of_games.txt")  # Hides the file
     else:
         file = open(".number_of_games.txt", "w")
         file.write(str(number_of_games))
@@ -65,7 +64,8 @@ def print_stats():
         number_of_games = file.read()
         file.close()
         stats[0] = number_of_games
-    else:
+    else:  # If ONE data file doesn't exist, the other one cannot exist too. So it sets both of the stats as NULL, and
+           # not 0, because the user can have stats equal to 0.
         stats[0] = "NULL"
         stats[1] = "NULL"
 
